@@ -59,7 +59,21 @@ class Autenticacion {
     })
   }
 
+  //auth-facebook Paso 1 :
   authCuentaFacebook () {
+    //creamos constante de provedoor indicando que es facebook
+    const provider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(result => {
+      $('#avatar').attr('src', result.user.photoURL) //cambiar el avatar por el avatar de google
+      $('.modal').modal('close') //cierra modal
+      Materialize.toast(`Bienvenido ${result.user.displayName} !! `, 4000) //mensaje de 4s bienvenida con el nombre de google
+    })
+    .catch( error => {
+      console.error(error) 
+      Materialize.toast(`Error al autenticarse con Facebook: ${error} `, 4000)
+    })
+    //pasamos el provedoor que acabamos de crear
+
     //$('#avatar').attr('src', result.user.photoURL)
     //$('.modal').modal('close')
     //Materialize.toast(`Bienvenido ${result.user.displayName} !! `, 4000)

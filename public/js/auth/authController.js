@@ -1,7 +1,8 @@
 $(() => {    
-    //auth-google Paso 2 : crear objeto
+    //auth-google auth-facebook Paso 2 : crear objeto
     const objAuth = new Autenticacion()
-    //$("#authFB").click(() => );
+
+    
 
     $("#btnRegistroEmail").click(() => {
         const nombres = $('#nombreContactoReg').val();
@@ -19,6 +20,9 @@ $(() => {
 
     //auth-google Paso 3: en el evento del click llamar el metodo desde el objeto creado objAuth
     $("#authGoogle").click(() => objAuth.authCuentaGoogle());
+
+    //auth-facebook Paso 3: llama al funcion donde configuramos el provider de facebook
+    $("#authFB").click(() => objAuth.authCuentaFacebook()); 
 
     //$("#authTwitter").click(() => //AUTH con Twitter);
 
