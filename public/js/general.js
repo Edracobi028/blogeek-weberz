@@ -23,6 +23,22 @@ $(() => {
   // TODO: Listening real time
 
   // TODO: Firebase observador del cambio de estado
+  //crear una funcion para escuchar y nos de el usuario
+  firebase.auth().onAuthStateChanged( user => {
+    if(user){
+      $('#btnInicioSesion').text('Salir') //texto del boton salir
+      //validar
+      if (user.photoURL) {
+        $('#avatar').attr('src', user.photoURL) //si tiene una foto la utenticacion se la agrega al avatar
+      }else{
+        $('#avatar').attr('src', 'imagenes/usuario_auth.png') //imagen por defecto identificado
+      }
+    }else {
+      $('#btnInicioSesion').text('Iniciar Sesión')
+      $('#avatar').attr('src', 'imagenes/usuario.png') //imagen por defecto no identificado
+    }
+  })
+
   //$('#btnInicioSesion').text('Salir')
   //$('#avatar').attr('src', user.photoURL)
   //$('#avatar').attr('src', 'imagenes/usuario_auth.png')
@@ -31,9 +47,19 @@ $(() => {
 
   // TODO: Evento boton inicio sesion
   $('#btnInicioSesion').click(() => {
-    //$('#avatar').attr('src', 'imagenes/usuario.png')
-    // Materialize.toast(`Error al realizar SignOut => ${error}`, 4000)
     
+    //Obtener el usuario que esta autenticado
+    const user = firebase.auth().currentUser
+    if (user) {
+      //Si esta autenticado mostrara el signout
+      $('#btnInicioSesion').text('Iniciar Sesión') //muestra boton de inicio de sesion
+      return firebase.auth().signOut().then( () => {
+        $('#avatar').attr('src', 'imagenes/usuario.png') //Muestra el avatar
+        Materialize.toast(`SignOut correcto`, 4000) //Muestra mensaje 4s
+      }).catch(error => {
+        Materialize.toast(`Error al realizar SignOut => ${error}`, 4000)
+      })
+    }
 
     $('#emailSesion').val('')
     $('#passwordSesion').val('')
