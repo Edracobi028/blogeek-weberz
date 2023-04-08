@@ -30,11 +30,53 @@ class Post {
   }
 
   consultarTodosPost () {
-    
+    //onSnapshot informa cualquier cambio que sufra la coleccion y guardamos en la variable querySnapshot para manipular
+    this.db.collection('posts').onSnapshot(querySnapshot => {
+        $('#posts').empty()//eliminamos los post para volverlos a mostrar
+        if(querySnapshot.empty){
+            $('#posts').append(this.obtenerTemplatePostVacio()) //si no tiene posts obtener plantilla de post vacia
+        }else{
+            //mostrar todo los posts
+            querySnapshot.forEach(post => {
+                let postHtml = this.obtenerPostTemplate(
+                    //enviar informacion
+                    post.data().autor,
+                    post.data().titulo,
+                    post.data().descripcion,
+                    post.data().videoLink,
+                    post.data().imagenLink,
+                    Utilidad.obtenerFecha(post.data().fecha.toDate())//dar formato de fecha
+                )
+                $('#posts').append(postHtml) //agregarlo a los posts
+            })
+        }
+    })
   }
 
   consultarPostxUsuario (emailUser) {
-    
+    //onSnapshot informa cualquier cambio que sufra la coleccion y guardamos en la variable querySnapshot para manipular
+    this.db.collection('posts')
+        .where('autor', "==", emailUser ) //filtro
+        .onSnapshot(querySnapshot => {
+        $('#posts').empty()//eliminamos los post para volverlos a mostrar
+        if(querySnapshot.empty){
+            $('#posts').append(this.obtenerTemplatePostVacio()) //si no tiene posts obtener plantilla de post vacia
+        }else{
+            //mostrar todo los posts
+            querySnapshot.forEach(post => {
+                let postHtml = this.obtenerPostTemplate(
+                    //enviar informacion
+                    post.data().autor,
+                    post.data().titulo,
+                    post.data().descripcion,
+                    post.data().videoLink,
+                    post.data().imagenLink,
+                    Utilidad.obtenerFecha(post.data().fecha.toDate())//dar formato de fecha
+                )
+                $('#posts').append(postHtml) //agregarlo a los posts
+            })
+        }
+    })
   }
 
   obtenerTemplatePostVacio () {
