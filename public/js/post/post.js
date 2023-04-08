@@ -84,6 +84,34 @@ class Post {
     })
   }
 
+  subirImagenPost (file, uid) {
+    //guardar en una variable con referencia a donde guardaremos la imagen 
+    const refStorage = firebase.storage().ref(`imgsPosts/${uid}/${file.name}`) //creamos
+    const task = refStorage.put(file) //accion para subir
+    //obtener los eventos
+    task.on('state_changed',
+        snapshot => {
+            const porcentaje = snapshot.bytesTransferred / snapshot.totalBytes * 100 //calculo
+            $('.determinate').attr('style', `width: ${porcentaje}%`) //informarle al usuario el avance
+        },
+        err => {
+            Materialize.toast(`Error subiendo archivo => ${err.message}`, 4000)
+        },
+        //finalizado obtener la url de descarga y guardar el doc
+        () => {
+            task.snapshot.ref
+            .getDownloadURL()
+            .then(url => {
+                console.log(url)
+                sessionStorage.setItem('imgNewPost', url) //guardar en la bd
+            }).catch(err => {
+                Materialize.toast(`Error obteniendo downloadURL => ${err.message}`, 4000)
+            })
+        } 
+        
+    ) 
+  }
+
   obtenerTemplatePostVacio () {
     return `<article class="post">
       <div class="post-titulo">
