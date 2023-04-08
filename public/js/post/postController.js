@@ -17,7 +17,13 @@ $(() => {
   $('#btnRegistroPost').click(() => {
     const post = new Post()
 
-    // TODO: Validar que el usuario esta autenticado
+    // Validar que el usuario esta autenticado
+    const user = firebase.auth().currentUser //obtener el usuario actual
+
+    if(user == null){
+      Materialize.toast(`Para crear el post debes estar autenticado`, 4000) //muestra mensaje de 4s
+      return // retorna para que no pueda hacer nada mas
+    }
 
     // Materialize.toast(`Para crear el post debes estar autenticado`, 4000)
 
