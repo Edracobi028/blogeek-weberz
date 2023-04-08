@@ -31,7 +31,10 @@ class Post {
 
   consultarTodosPost () {
     //onSnapshot informa cualquier cambio que sufra la coleccion y guardamos en la variable querySnapshot para manipular
-    this.db.collection('posts').onSnapshot(querySnapshot => {
+    this.db.collection('posts')
+        .orderBy('fecha','asc')
+        .orderBy('titulo','asc')
+        .onSnapshot(querySnapshot => {
         $('#posts').empty()//eliminamos los post para volverlos a mostrar
         if(querySnapshot.empty){
             $('#posts').append(this.obtenerTemplatePostVacio()) //si no tiene posts obtener plantilla de post vacia
@@ -55,7 +58,9 @@ class Post {
 
   consultarPostxUsuario (emailUser) {
     //onSnapshot informa cualquier cambio que sufra la coleccion y guardamos en la variable querySnapshot para manipular
-    this.db.collection('posts')
+    this.db
+        .collection('posts')
+        .orderBy('fecha', 'asc')
         .where('autor', "==", emailUser ) //filtro
         .onSnapshot(querySnapshot => {
         $('#posts').empty()//eliminamos los post para volverlos a mostrar
