@@ -76,7 +76,7 @@ $(() => {
   $('#btnTodoPost').click(() => {
     $('#tituloPost').text('Posts de la Comunidad')
     const post = new Post()
-    post.consultarTodosPost()   
+    post.consultarTodosPost();   
   })
 
   $('#btnMisPost').click(() => {
