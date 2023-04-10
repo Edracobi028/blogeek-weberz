@@ -35,17 +35,42 @@ $(() => {
   }).then(token => {
     const db = firestore.firestore() //crear instancia firestore
     db.settings({timestampsInSnapshots:true})
-    db.colletion('tokens').doc(token).set({
-      token: token
-    }).catch(error => {
-      console.error(`Error al registrar el token en la BD => ${error}`)
+    db.colletion('tokens')
+      .doc(token)
+      .set({
+        token: token
+      }).catch(error => {
+        console.error(`Error al registrar el token en la BD => ${error}`)
+      })
+  })
+
+  //Paso 5 cloud-messaging: Obtener el token cuando el usuario refresca
+  messaging.onTokenRefresh(() =>{
+    messaging.getToken()
+    .then(token => {
+      console.log("token se ha renovado")
+      const db = firestore.firestore() //crear instancia firestore
+      db.settings({timestampsInSnapshots:true})
+      db.colletion('tokens')
+        .doc(token)
+        .set({
+          token: token
+        }).catch(error => {
+          console.error(`Error al registrar el token en la BD => ${error}`)
+        })
     })
   })
 
-  // TODO: Recibir las notificaciones cuando el usuario esta foreground
+  // Paso 6 cloud-messaging: Recibir las notificaciones cuando el usuario esta foreground
+  messaging.onMessage(payload => {
+    Materialize.toast(`Ya tenemos un nuevo post. Revísalo se llama ${payload.data.titulo}`,6000)
+  })
+
+
+
   // TODO: Recibir las notificaciones cuando el usuario esta background
 
-  // habilitamso la funcion para que la escuche
+  // habilitamos la funcion para que la escuche
   const post = new Post()
   post.consultarTodosPost()
 
