@@ -2,8 +2,6 @@ $(() => {
   $('.tooltipped').tooltip({ delay: 50 })
   $('.modal').modal()
 
-  // TODO: Adicionar el service worker
-
   // Init Firebase nuevamente
   /* firebase.initializeApp(config); */
   // Initialize Firebase
@@ -12,12 +10,39 @@ $(() => {
   const analytics = getAnalytics(app);
   const auth = getAuth(app);  */
 
-  // TODO: Registrar LLave publica de messaging
+  // Paso1 cloud-messaging: promesa donde registramos el service worker
+  navigator.serviceWorker.register('notificaciones-sw.js')
+  .then(registro => {
+    console.log('service worker registrado')
+    firebase.messaging().useServiceWorker(registro)
+  }).catch(error => {
+    console.error(`Error al registrar el service worker => ${error}`)
+  })
 
-  // TODO: Solicitar permisos para las notificaciones
+  // Paso2 cloud-messaging: Registrar credenciales para hace la relacion de esta app
+  const messaging = firebase.messaging() //obtener instancia de messaging
+
+  // Paso3 cloud-messaging: Registramos la LLave publica de messaging del proyecto en firebase
+  messaging.usePublicVapidKey(
+    'BAXVFmmO2FSOFZq49AI_0lrGP5WrB5jgN_VnPMZlGGhiQZAv0TmlymyAAqXKbIUpTzw-CnFVOEC6-IIFKdSjRWs'
+  )
+
+  // Paso 4 cloud-messaging: Solicitar permisos para las notificaciones y registrar nuestro token a firebase
+  messaging.requestPermission()
+  .then(() => {
+    console.log("Permiso otorgado")
+    return messaging.getToken()
+  }).then(token => {
+    const db = firestore.firestore() //crear instancia firestore
+    db.settings({timestampsInSnapshots:true})
+    db.colletion('tokens').doc(token).set({
+      token: token
+    }).catch(error => {
+      console.error(`Error al registrar el token en la BD => ${error}`)
+    })
+  })
 
   // TODO: Recibir las notificaciones cuando el usuario esta foreground
-
   // TODO: Recibir las notificaciones cuando el usuario esta background
 
   // habilitamso la funcion para que la escuche
