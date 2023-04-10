@@ -32,10 +32,13 @@ $(() => {
   .then(() => {
     console.log("Permiso otorgado")
     return messaging.getToken()
-  }).then(token => {
-    const db = firestore.firestore() //crear instancia firestore
+  })
+  .then(token => {
+    console.log("token")
+    console.log(token)
+    const db = firebase.firestore() //crear instancia firestore
     db.settings({timestampsInSnapshots:true})
-    db.colletion('tokens')
+    db.collection('tokens')
       .doc(token)
       .set({
         token: token
@@ -49,9 +52,9 @@ $(() => {
     messaging.getToken()
     .then(token => {
       console.log("token se ha renovado")
-      const db = firestore.firestore() //crear instancia firestore
+      const db = firebase.firestore() //crear instancia firestore
       db.settings({timestampsInSnapshots:true})
-      db.colletion('tokens')
+      db.collection('tokens')
         .doc(token)
         .set({
           token: token

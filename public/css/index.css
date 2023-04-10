@@ -42,7 +42,7 @@
   font-style: normal;
 }
 .btnPpal {
-  background: #7acc2d !important;
+  background: #2a9cd0 !important;
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   transition: 0.5s;
@@ -56,7 +56,7 @@ body {
   font-family: 'Allerta', sans-serif;
 }
 .headerppal {
-  background: #126798;
+  background: #222222;
   overflow: hidden;
   box-shadow: 0 8px 10px rgba(0,0,0,0.5);
   padding-bottom: 30px;
@@ -107,8 +107,8 @@ body {
   transform: translateY(100px);
 }
 .menu {
-  background: #219cca;
-  border-left: 10px solid #fff;
+  background: #688391;
+  border-left: 10px solid #688391;
   box-shadow: 0 8px 10px rgba(0,0,0,0.5);
 }
 .menu ul {
@@ -133,7 +133,7 @@ body {
 }
 .footer {
   height: 100%;
-  background: #126798;
+  background: #222222;
   margin: 0px;
 }
 .footer .contenedor-footer {
@@ -201,19 +201,19 @@ label
   text-decoration: none;
 }
 .footer .contenedor-footer .redesSociales .logos-redes .logo-facebook:before {
-  color: #7acc2d;
+  color: #2a9cd0;
   content: "\f101";
   font-size: 30px;
   font-family: "Flaticon";
 }
 .footer .contenedor-footer .redesSociales .logos-redes .logo-twitter:before {
-  color: #7acc2d;
+  color: #2a9cd0;
   content: "\f102";
   font-size: 30px;
   font-family: "Flaticon";
 }
 .footer .contenedor-footer .redesSociales .logos-redes .logo-github:before {
-  color: #7acc2d;
+  color: #2a9cd0;
   content: "\f100";
   font-size: 30px;
   font-family: "Flaticon";
@@ -222,6 +222,7 @@ label
   padding: 0.8em;
   margin: 0px;
   text-align: center;
+  background-color: #f5f5f5;
 }
 .posts .post {
   background: #fff;
@@ -282,7 +283,7 @@ label
 }
 .posts .post .post-videolink {
   text-align: center;
-  background: #126798;
+  background: #688391;
   color: #fff;
   font-family: 'Allerta', sans-serif;
   padding: 0.5em;
@@ -293,7 +294,7 @@ label
   text-decoration: underline;
 }
 .posts .post .post-footer {
-  background: #126798;
+  background: #688391;
   color: #fff;
   font-size: 17px;
   padding-bottom: 0.5em;
@@ -321,8 +322,11 @@ label
   font-size: 1em;
   text-align: left;
 }
+.modal-content{
+  background-color: #f5f5f5;
+}
 .registro-bienvenida span {
-  color: #7acc2d;
+  color: #2a9cd0;
   font-size: 1.2em;
   font-weight: bold;
 }

@@ -1,0 +1,10 @@
+{
+  "projects": {
+    "default": "blogeekplatzi",
+    "blogeekdev": "blogeekplatzi",
+    "blogeek": "blogeek-webeerz",
+    "blogdev": "blogeekplatzi"
+  },
+  "targets": {},
+  "etags": {}
+}

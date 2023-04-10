@@ -18,7 +18,7 @@ messaging.setBackgroundMessageHandler(payload => {
         click_action: "https://blogeek-webeerz.firebaseapp.com"
     }
     //mostrar la notificacion
-    return self.registration.showNotificacion(
+    return self.registration.showNotification(
         tituloNotificacion,
         opcionesNotificacion
     )
